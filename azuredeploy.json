@@ -31,11 +31,7 @@
         "vmName": "WindowsNV",
         "virtualNetworkName": "NvVNET",
         "vhdStorageAccountName": "[uniqueString(resourceGroup().id, 'storage')]",
-        "privateIPAddressName": "reservedIP",
-        "scriptFolder": ".",
-        "scriptFileName": "Copy-FileFromAzure.ps1",
-        "fileToBeCopied": "FileToBeCopied.txt",
-        "scriptParameters": "[concat('-artifactsLocation ', parameters('_artifactsLocation'), ' -artifactsLocationSasToken \"', '\" -folderName ', variables('scriptFolder'), ' -fileToInstall ', variables('fileToBeCopied'))]"
+        "privateIPAddressName": "reservedIP"
     },
     "resources": [
         {
@@ -95,7 +91,7 @@
             ],
             "properties": {
                 "hardwareProfile": {
-                    "vmSize": "Standard_D1_v2"
+                    "vmSize": "Standard_NV6"
                 },
                 "osProfile": {
                     "computerName": "[variables('vmName')]",
@@ -127,27 +123,7 @@
                 }
             },
             "resources": [
-                {
-                    "type": "extensions",
-                    "name": "CustomScriptExtension",
-                    "apiVersion": "2015-06-15",
-                    "location": "[resourceGroup().location]",
-                    "dependsOn": [
-                        "[variables('vmName')]"
-                    ],
-                    "properties": {
-                        "publisher": "Microsoft.Compute",
-                        "type": "CustomScriptExtension",
-                        "typeHandlerVersion": "1.8",
-                        "autoUpgradeMinorVersion": true,
-                        "settings": {
-                            "fileUris": [
-                                "[concat(parameters('_artifactsLocation'), '/', variables('ScriptFolder'), '/', variables('ScriptFileName'))]"
-                            ],
-                            "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -File ', variables('scriptFolder'), '/', variables('scriptFileName'), ' ', variables('scriptParameters'))]"
-                        }
-                    }
-                }
+                
             ]
         }
     ]
