@@ -31,7 +31,12 @@
         "vmName": "WindowsNV",
         "virtualNetworkName": "NvVNET",
         "vhdStorageAccountName": "[uniqueString(resourceGroup().id, 'storage')]",
-        "privateIPAddressName": "reservedIP"
+        "privateIPAddressName": "reservedIP",
+        "NvVnetPrefix": "10.0.0.0/16",
+        "NvVnetSubnet1Name": "Subnet-1",
+        "NvVnetSubnet1Prefix": "10.0.0.0/24",
+        "NvVnetSubnet2Name": "Subnet-2",
+        "NvVnetSubnet2Prefix": "10.0.1.0/24"
     },
     "resources": [
         {
@@ -125,6 +130,37 @@
             "resources": [
                 
             ]
+        },
+        {
+            "name": "NvVnet",
+            "type": "Microsoft.Network/virtualNetworks",
+            "location": "[resourceGroup().location]",
+            "apiVersion": "2015-06-15",
+            "dependsOn": [ ],
+            "tags": {
+                "displayName": "NvVnet"
+            },
+            "properties": {
+                "addressSpace": {
+                    "addressPrefixes": [
+                        "[variables('NvVnetPrefix')]"
+                    ]
+                },
+                "subnets": [
+                    {
+                        "name": "[variables('NvVnetSubnet1Name')]",
+                        "properties": {
+                            "addressPrefix": "[variables('NvVnetSubnet1Prefix')]"
+                        }
+                    },
+                    {
+                        "name": "[variables('NvVnetSubnet2Name')]",
+                        "properties": {
+                            "addressPrefix": "[variables('NvVnetSubnet2Prefix')]"
+                        }
+                    }
+                ]
+            }
         }
     ]
 }
