@@ -28,7 +28,7 @@
         "subnetName": "Subnet",
         "subnetPrefix": "10.0.0.0/24",
         "subnetRef": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('virtualNetworkName'), variables('subnetName'))]",
-        "vmName": "windowsm60",
+        "vmName": "winm60",
         "virtualNetworkName": "NvVNET",
         "vhdStorageAccountName": "[uniqueString(resourceGroup().id, 'storage')]",
         "privateIPAddressName": "reservedIP",
