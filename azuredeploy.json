@@ -20,7 +20,8 @@
           "description": "The base URI where artifacts required by this template are located. When the template is deployed using the accompanying scripts, a private location in the subscription will be used and this value will be automatically generated."
         },
         "defaultValue": "https://raw.githubusercontent.com/Azure/azure-accessplatform-windows-gpu/master"
-      }
+      },
+      "nicName":  { "type":  "string", "metadata": { "description": "the nicName with default"}, "defaultValue": "nvVMNic"}
     },
     "variables": {
         "nicName": "nvVMNic",
@@ -59,32 +60,32 @@
                 "publicIPAllocationMethod": "Static"
             }
         },
-        {
-            "apiVersion": "2016-09-01",
-            "type": "Microsoft.Network/networkInterfaces",
-            "name": "[variables('nicName')]",
-            "location": "[resourceGroup().location]",
-            "dependsOn": [
-                "[variables('privateIPAddressName')]",
-                "[variables('virtualNetworkName')]"
-            ],
-            "properties": {
-                "ipConfigurations": [
-                    {
-                        "name": "ipconfig1",
-                        "properties": {
-                            "privateIPAllocationMethod": "Static",
-                            "publicIPAddress": {
-                                "id": "[resourceId('Microsoft.Network/publicIPAddresses',variables('privateIPAddressName'))]"
-                            },
-                            "subnet": {
-                                "id": "[variables('subnetRef')]"
-                            }
-                        }
-                    }
-                ]
+      {
+        "apiVersion": "2016-09-01",
+        "dependsOn": [
+          "[variables('privateIPAddressName')]",
+          "[variables('virtualNetworkName')]"
+        ],
+        "location": "[resourceGroup().location]",
+        "name": "[parameters('nicName')]",
+        "properties": {
+          "ipConfigurations": [
+            {
+              "name": "ipconfig1",
+              "properties": {
+                "privateIPAllocationMethod": "Static",
+                "publicIPAddress": {
+                  "id": "[resourceId('Microsoft.Network/publicIPAddresses',variables('privateIPAddressName'))]"
+                },
+                "subnet": {
+                  "id": "[variables('subnetRef')]"
+                }
+              }
             }
+          ]
         },
+        "type": "Microsoft.Network/networkInterfaces"
+      },
         {
             "apiVersion": "2016-03-30",
             "type": "Microsoft.Compute/virtualMachines",
