@@ -1,4 +1,4 @@
-<# Custom Script for Windows to install a file from Azure Storage using the staging folder created by the deployment script #>
+<# Install NVIDIA Drivers, PCOIP Agent and download Leostream Agent/OpendTect #>
 param (
     [string]$dest,
     [string]$leostreamAgentVer,
