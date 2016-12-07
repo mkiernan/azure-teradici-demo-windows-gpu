@@ -160,7 +160,7 @@
     "dnsNameForPublicIP": "[uniqueString(resourceGroup().id)]",
     "fileToBeCopied": "FileToBeCopied.txt",
     "nicName": "[parameters('VMnicName')]",
-    "scriptFileName": "Copy-FileFromAzure.ps1",
+    "scriptFileName": "installDriverAgentsM60.ps1",
     "scriptFolder": ".",
     "scriptParameters": "[concat('-artifactsLocation ', parameters('_artifactsLocation'), ' -artifactsLocationSasToken \"', parameters('_artifactsLocationSasToken'), '\" -folderName ', variables('scriptFolder'), ' -fileToInstall ', variables('fileToBeCopied'))]",
     "subnetName": "[parameters('subName')]",
@@ -290,7 +290,7 @@
           "apiVersion": "2015-06-15",
           "location": "[resourceGroup().location]",
           "dependsOn": [
-            "[variables('vmName')]"
+            "[parameters('vmName')]"
           ],
           "properties": {
             "publisher": "Microsoft.Compute",
