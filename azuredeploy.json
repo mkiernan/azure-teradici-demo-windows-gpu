@@ -39,7 +39,7 @@
     },
     "VMName": {
       "type": "string",
-      "defaultValue": "windows2016m60",
+      "defaultValue": "winm60",
       "metadata": {
         "description": "The VMName"
       }
@@ -102,13 +102,13 @@
     },
     "allocationMethod": {
       "type": "string",
-      "defaultValue": "Dynamic",
+      "defaultValue": "Static",
       "allowedValues": [
         "Dynamic",
         "Static"
       ],
       "metadata": {
-        "description": "The Public Addtress Allocation Static or Dynamic"
+        "description": "The Public Address Allocation Static or Dynamic"
       }
     },
     "storageAcc": {
