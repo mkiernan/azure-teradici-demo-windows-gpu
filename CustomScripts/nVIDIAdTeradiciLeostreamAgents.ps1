@@ -15,11 +15,11 @@ $storageAcc = "tdcm16sg112leo8193ls102"
 $conName = "tdcm16sg112leo8193ls102"
 #>
 $dest = "C:\Downloadinstallers"
-$leostreamAgentVer = $Args[0]
-$teradiciAgentVer = $Args[1]
-$nvidiaVer = $Args[2]
-$storageAcc = $Args[3]
-$conName = $Args[4]
+$leostreamAgentVer = $args[0]
+$teradiciAgentVer = $args[1]
+$nvidiaVer = $args[2]
+$storageAcc = $args[3]
+$conName = $args[4]
 
 New-Item -Path $dest -ItemType directory
 
