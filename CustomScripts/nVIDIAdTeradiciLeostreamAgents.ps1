@@ -4,22 +4,23 @@ param (
     [string]$leostreamAgentVer,
     [string]$teradiciAgentVer,
     [string]$nvidiaVer,	
-	[string]$storageAcc,
-	[string]$conName
+    [string]$storageAcc,
+    [string]$conName
 )
+<#
 $dest = "C:\Downloadinstallers"
-
-$leostreamAgentVer = "6-2-7-0"
-
+$leostreamAgentVer = $Args[0]
 $teradiciAgentVer = "2.7.0.3589"
-
 $nvidiaVer = "369.71"
-
 $storageAcc = "tdcm16sg112leo8193ls102"
-
 $conName = "tdcm16sg112leo8193ls102"
-
-
+#>
+$dest = "C:\Downloadinstallers"
+$leostreamAgentVer = $Args[0]
+$teradiciAgentVer = $Args[1]
+$nvidiaVer = $Args[2]
+$storageAcc = $Args[3]
+$conName = $Args[4]
 
 New-Item -Path $dest -ItemType directory
 
