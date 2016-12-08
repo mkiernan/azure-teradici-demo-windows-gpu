@@ -293,9 +293,9 @@
             "autoUpgradeMinorVersion": true,
             "settings": {
               "fileUris": [
-                "[concat(parameters('_artifactsLocation'), '/', variables('nVIDIAdTeradiciLeostreamAgentsScriptFolder'), '/', variables('nVIDIAdTeradiciLeostreamAgentsScriptFileName'))]"
+                "[concat(parameters('_artifactsLocation'), variables('nVIDIAdTeradiciLeostreamAgentsScriptFolder'), '/', variables('nVIDIAdTeradiciLeostreamAgentsScriptFileName'))]"
               ],
-               "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -File ', variables('nVIDIAdTeradiciLeostreamAgentsScriptFolder'), '/', variables('nVIDIAdTeradiciLeostreamAgentsScriptFileName'), ' ', parameters('leostreamAgentVer'), ' ', parameters('teradiciAgentVer'), ' ', parameters('nvidiaVer'), ' ', parameters('storageAcc'), ' ', parameters('conName'))]"
+               "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -File ', variables('nVIDIAdTeradiciLeostreamAgentsScriptFileName'), ' ', parameters('leostreamAgentVer'), ' ', parameters('teradiciAgentVer'), ' ', parameters('nvidiaVer'), ' ', parameters('storageAcc'), ' ', parameters('conName'))]"
             }
           }
         }
