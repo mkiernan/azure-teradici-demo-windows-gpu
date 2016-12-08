@@ -27,7 +27,7 @@
     },
     "VMType": {
       "type": "string",
-      "defaultValue": "2016-Datacenter",
+      "defaultValue": "Standard_NV12",
       "allowedValues": [
         "Standard_NV6",
         "Standard_NV12",
@@ -39,7 +39,7 @@
     },
     "VMName": {
       "type": "string",
-      "defaultValue": "windows2016m60",
+      "defaultValue": "win16m60",
       "metadata": {
         "description": "The VMName"
       }
@@ -95,7 +95,7 @@
     },
     "publicIPAddressName": {
       "type": "string",
-      "defaultValue": "MyPublicIP",
+      "defaultValue": "winm60",
       "metadata": {
         "description": "The Public Addtress Name"
       }
