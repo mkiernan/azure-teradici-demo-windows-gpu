@@ -1,11 +1,12 @@
 <# Install NVIDIA Drivers, PCOIP Agent and download Leostream Agent/OpendTect #>
-param (
+<#param (
     [string]$leostreamAgentVer,
     [string]$teradiciAgentVer,
     [string]$nvidiaVer,	
     [string]$storageAcc,
     [string]$conName
 )
+#>
 <#
 $dest = "C:\Downloadinstallers"
 $leostreamAgentVer = $Args[0]
