@@ -1,6 +1,5 @@
 <# Install NVIDIA Drivers, PCOIP Agent and download Leostream Agent/OpendTect #>
 param (
-    [string]$dest,
     [string]$leostreamAgentVer,
     [string]$teradiciAgentVer,
     [string]$nvidiaVer,	
