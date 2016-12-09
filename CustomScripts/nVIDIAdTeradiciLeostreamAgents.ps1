@@ -34,7 +34,7 @@ wget https://$storageAcc.blob.core.windows.net/$conName/LeostreamAgentSetup$leos
 
 
 C:\Downloadinstallers\*_grid_win10_server2016_64bit_international.exe /s
-Set-Location "C:\NVIDIA\*"
+Set-Location "C:\NVIDIA\$nvidiaVer"
 .\setup.exe -s
 Start-Sleep -s 90
 C:\Downloadinstallers\PCoIP_agent_release_installer_* /S
