@@ -127,7 +127,7 @@
     },
     "license": {
       "type": "string",
-      "defaultValue": "DA16-05B0-4D56-62F7",
+      "defaultValue": "8DE6-11BB-F2E7-8178",
       "metadata": {
         "description": "The Teradici Agent license"
       }
@@ -151,7 +151,6 @@
     "addressPrefix": "[parameters('addPrefix')]",
     "dnsNameForPublicIP": "[uniqueString(resourceGroup().id)]",
     "nicName": "[parameters('VMnicName')]",
-    "scriptFileName": "installDriverAgentsM60.ps1",
     "subnetName": "[parameters('subName')]",
     "subnetPrefix": "[parameters('subPrefix')]",
     "subnetRef": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('virtualNetworkName'), variables('subnetName'))]",
