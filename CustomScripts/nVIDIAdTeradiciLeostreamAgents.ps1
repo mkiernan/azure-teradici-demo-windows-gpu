@@ -37,7 +37,7 @@ C:\Downloadinstallers\*_grid_win10_server2016_64bit_international.exe /s
 Set-Location "C:\NVIDIA\$nvidiaVer"
 .\setup.exe -s
 Start-Sleep -s 90
-C:\Downloadinstallers\PCoIP_agent_release_installer_* /S
+C:\Downloadinstallers\PCoIP_agent_release_installer_"$teradiciAgentVer"_graphics.exe /S
 Start-Sleep -s 90
 & 'C:\Program Files (x86)\Teradici\PCoIP Agent\bin\RestartAgent.bat'
 net stop nvsvc
