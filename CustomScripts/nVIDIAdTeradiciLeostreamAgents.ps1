@@ -77,7 +77,7 @@ $NVIDIAfolder = [System.String]::Format("C:\NVIDIA\{0}", $nvidiaVer)
 Write-Host "The NVIDIA Folder name is '$NVIDIAfolder'"
 Set-Location $NVIDIAfolder
 setup.exe -s -noreboot -clean
-Start-Sleep -s 90
+Start-Sleep -s 400
 & $teradiciExePath /S
 Start-Sleep -s 90
 & 'C:\Program Files (x86)\Teradici\PCoIP Agent\bin\RestartAgent.bat'
