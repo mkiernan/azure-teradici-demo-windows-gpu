@@ -21,6 +21,8 @@ $teradiciAgentVer = $args[1]
 $nvidiaVer = $args[2]
 $storageAcc = $args[3]
 $conName = $args[4]
+$Date = Get-Date
+Write-Host "You inputs are '$leostreamAgentVer' and '$teradiciAgentVer' with '$nvidiaVer', '$storageAcc', '$conName'  on '$Date'"
 
 New-Item -Path $dest -ItemType directory
 
