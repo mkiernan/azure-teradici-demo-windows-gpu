@@ -21,8 +21,9 @@ $teradiciAgentVer = $args[1]
 $nvidiaVer = $args[2]
 $storageAcc = $args[3]
 $conName = $args[4]
+$license = $args[5]
 $Date = Get-Date
-Write-Host "You inputs are '$leostreamAgentVer' and '$teradiciAgentVer' with '$nvidiaVer', '$storageAcc', '$conName'  on '$Date'"
+Write-Host "You inputs are '$leostreamAgentVer' and '$teradiciAgentVer' with '$nvidiaVer', '$storageAcc', '$conName', '$license'  on '$Date'"
 
 New-Item -Path $dest -ItemType directory
 
@@ -33,7 +34,8 @@ wget https://$storageAcc.blob.core.windows.net/$conName/PCoIP_agent_release_inst
 wget https://$storageAcc.blob.core.windows.net/$conName/LeostreamAgentSetup$leostreamAgentVer.exe -OutFile C:\Downloadinstallers\LeostreamAgentSetup$leostreamAgentVer.exe
 
 
-C:\Downloadinstallers\*_grid_win10_server2016_64bit_international.exe /s
+C:\Downloadinstallers\"$nvidiaVer"_grid_win10_server2016_64bit_international.exe /s
+Start-Sleep -s 90
 Set-Location "C:\NVIDIA\$nvidiaVer"
 .\setup.exe -s
 Start-Sleep -s 90
@@ -43,3 +45,4 @@ Start-Sleep -s 90
 net stop nvsvc
 Start-Sleep -s 90
 net start nvsvc
+& 'C:\Program Files (x86)\Teradici\PCoIP Agent\licenses\appactutil.exe' appactutil.exe -served -comm soap -commServer https://teradici.flexnetoperations.com/control/trdi/ActivationService -entitlementID $license
