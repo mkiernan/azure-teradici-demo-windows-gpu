@@ -84,5 +84,6 @@ Start-Sleep -s 90
 net stop nvsvc
 Start-Sleep -s 90
 net start nvsvc
-& 'C:\Program Files (x86)\Teradici\PCoIP Agent\licenses\appactutil.exe' appactutil.exe -served -comm soap -commServer https://teradici.flexnetoperations.com/control/trdi/ActivationService -entitlementID $license
+cd 'C:\Program Files (x86)\Teradici\PCoIP Agent\licenses\'
+.\appactutil.exe -served -comm soap -commServer https://teradici.flexnetoperations.com/control/trdi/ActivationService -entitlementID $license
 
