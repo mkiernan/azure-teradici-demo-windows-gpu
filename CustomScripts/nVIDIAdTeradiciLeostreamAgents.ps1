@@ -80,7 +80,9 @@ Set-Location $NVIDIAfolder
 Start-Sleep -s 400
 & $teradiciExePath /S
 Start-Sleep -s 90
-& 'C:\Program Files (x86)\Teradici\PCoIP Agent\bin\RestartAgent.bat'
+<# & 'C:\Program Files (x86)\Teradici\PCoIP Agent\bin\RestartAgent.bat' #>
+cd 'C:\Program Files (x86)\Teradici\PCoIP Agent\bin'
+.\RestartAgent.bat
 net stop nvsvc
 Start-Sleep -s 90
 net start nvsvc
