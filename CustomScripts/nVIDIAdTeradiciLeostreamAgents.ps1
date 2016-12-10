@@ -58,15 +58,15 @@ $leostreamExeName = [System.IO.Path]::GetFileName($leostreamAgentUrl)
 $nvidiaExePath = [System.String]::Format("{0}{1}", $dest, $nvidiaExeName)
 $teradiciExePath = [System.String]::Format("{0}{1}", $dest, $teradiciExeName)
 $leostreamExePath = [System.String]::Format("{0}{1}", $dest, $leostreamExeName)
-Write-Host "The Url name is '$nvidiaUrl'"
-Write-Host "The exe name is '$nvidiaExeName'"
-Write-Host "The Url name is '$teradiciAgentUrl'"
-Write-Host "The exe name is '$teradiciExeName'"
-Write-Host "The Url name is '$leostreamAgentUrl'"
-Write-Host "The exe Full Path is '$leostreamExeName'"
-Write-Host "The exe name is '$nvidiaExePath'"
-Write-Host "The exe Full Path is '$teradiciExePath'"
-Write-Host "The exe Full Path is '$leostreamExePath'"
+Write-Host "The NVIDIA Driver exe Url  is '$nvidiaUrl'"
+Write-Host "The NVIDIA exe name is '$nvidiaExeName'"
+Write-Host "The Teradici Agent exe  Url  is '$teradiciAgentUrl'"
+Write-Host "The Teradici Agent exe name is '$teradiciExeName'"
+Write-Host "The Leostream Agent exe Url is '$leostreamAgentUrl'"
+Write-Host "The Leostream Agent exe name is '$leostreamExeName'"
+Write-Host "The NVIDIDA exe downloaded location is '$nvidiaExePath'"
+Write-Host "The Teradici Agent exe downloaded location is '$teradiciExePath'"
+Write-Host "The Leostream Agent exe downloaded location iss '$leostreamExePath'"
 wget $nvidiaUrl -OutFile $nvidiaExePath
 wget $teradiciAgentUrl -OutFile $teradiciExePath
 wget $leostreamAgentUrl -OutFile $leostreamExePath
@@ -87,7 +87,9 @@ cd 'C:\Program Files (x86)\Teradici\PCoIP Agent\bin'
 Write-Host "teradici arbiter on"
 net stop nvsvc
 Start-Sleep -s 90
+Write-Host "Stopping NVIDIA Display Driver"
 net start nvsvc
+Write-Host "Starting NVIDIA Display Driver"
 cd 'C:\Program Files (x86)\Teradici\PCoIP Agent\licenses\'
 Write-Host "pre-activate"
 .\appactutil.exe -served -comm soap -commServer https://teradici.flexnetoperations.com/control/trdi/ActivationService -entitlementID $license
