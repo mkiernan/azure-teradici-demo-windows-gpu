@@ -78,12 +78,14 @@ Write-Host "The NVIDIA Folder name is '$NVIDIAfolder'"
 Set-Location $NVIDIAfolder
 .\setup.exe -s -noreboot -clean
 Start-Sleep -s 400
-& $teradiciExePath /S
+& $teradiciExePath /S /noreboot
 Start-Sleep -s 90 
 Write-Host "teradiciagent install over"
 <# & 'C:\Program Files (x86)\Teradici\PCoIP Agent\bin\RestartAgent.bat' #>
-cd 'C:\Program Files (x86)\Teradici\PCoIP Agent\bin'
+<# cd 'C:\Program Files (x86)\Teradici\PCoIP Agent\bin'
 .\RestartAgent.bat
+.\pcoip_arbiter_win32.exe start
+#>
 Write-Host "teradici arbiter on"
 net stop nvsvc
 Start-Sleep -s 90
