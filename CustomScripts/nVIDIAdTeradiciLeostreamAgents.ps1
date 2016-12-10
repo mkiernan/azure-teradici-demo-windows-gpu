@@ -79,13 +79,17 @@ Set-Location $NVIDIAfolder
 .\setup.exe -s -noreboot -clean
 Start-Sleep -s 400
 & $teradiciExePath /S
-Start-Sleep -s 90
+Start-Sleep -s 90 
+Write-Output "teradiciagent install over"
 <# & 'C:\Program Files (x86)\Teradici\PCoIP Agent\bin\RestartAgent.bat' #>
 cd 'C:\Program Files (x86)\Teradici\PCoIP Agent\bin'
 .\RestartAgent.bat
+Write-Output "teradici arbiter on"
 net stop nvsvc
 Start-Sleep -s 90
 net start nvsvc
 cd 'C:\Program Files (x86)\Teradici\PCoIP Agent\licenses\'
+Write-Output "pre-activate"
 .\appactutil.exe -served -comm soap -commServer https://teradici.flexnetoperations.com/control/trdi/ActivationService -entitlementID $license
-
+Write-Output "activation over"
+Write-Output "end script"
