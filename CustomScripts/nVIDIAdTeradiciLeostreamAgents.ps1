@@ -78,22 +78,23 @@ Write-Host "The NVIDIA Folder name is '$NVIDIAfolder'"
 Set-Location $NVIDIAfolder
 .\setup.exe -s -noreboot -clean
 Start-Sleep -s 400
-& $teradiciExePath /S /noreboot
+& $teradiciExePath /S /norestart
 Start-Sleep -s 90 
 Write-Host "teradiciagent install over"
+cd 'C:\Program Files (x86)\Teradici\PCoIP Agent\licenses\'
+Write-Host "pre-activate"
+.\appactutil.exe -served -comm soap -commServer https://teradici.flexnetoperations.com/control/trdi/ActivationService -entitlementID $license
+Write-Host "activation over"
+Write-Host "end script"
 <# & 'C:\Program Files (x86)\Teradici\PCoIP Agent\bin\RestartAgent.bat' #>
 <# cd 'C:\Program Files (x86)\Teradici\PCoIP Agent\bin'
 .\RestartAgent.bat
 .\pcoip_arbiter_win32.exe start
-#>
+
 Write-Host "teradici arbiter on"
 net stop nvsvc
 Start-Sleep -s 90
 Write-Host "Stopping NVIDIA Display Driver"
 net start nvsvc
 Write-Host "Starting NVIDIA Display Driver"
-cd 'C:\Program Files (x86)\Teradici\PCoIP Agent\licenses\'
-Write-Host "pre-activate"
-.\appactutil.exe -served -comm soap -commServer https://teradici.flexnetoperations.com/control/trdi/ActivationService -entitlementID $license
-Write-Host "activation over"
-Write-Host "end script"
+#>
