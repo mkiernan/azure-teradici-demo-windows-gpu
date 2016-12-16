@@ -85,7 +85,9 @@ cd 'C:\Program Files (x86)\Teradici\PCoIP Agent\licenses\'
 Write-Host "pre-activate"
 .\appactutil.exe -served -comm soap -commServer https://teradici.flexnetoperations.com/control/trdi/ActivationService -entitlementID $license
 Write-Host "activation over"
+<# Reboot in 60 seconds #>
 Write-Host "end script"
+C:\WINDOWS\system32\shutdown.exe -r -f -t 60
 <# & 'C:\Program Files (x86)\Teradici\PCoIP Agent\bin\RestartAgent.bat' #>
 <# cd 'C:\Program Files (x86)\Teradici\PCoIP Agent\bin'
 .\RestartAgent.bat
