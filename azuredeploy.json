@@ -127,9 +127,9 @@
     },
     "license": {
       "type": "string",
-      "defaultValue": "8DE6-11BB-F2E7-8178",
+      "defaultValue": "344F-D342-7928-30A2",
       "metadata": {
-        "description": "The Teradici Agent license"
+        "description": "The Teradici Agent license trial @ http://connect.teradici.com/cas-trial"
       }
     },
     "teradiciAgentVer": {
