@@ -73,14 +73,14 @@ Write-Host "The Leostream Agent exe downloaded location iss '$leostreamExePath'"
 wget $nvidiaUrl -OutFile $nvidiaExePath
 wget $teradiciAgentUrl -OutFile $teradiciExePath
 wget $leostreamAgentUrl -OutFile $leostreamExePath
-Start-Sleep -s 90
+Start-Sleep -s 360
 & $nvidiaExePath  /s
-Start-Sleep -s 90
+Start-Sleep -s 60
 $NVIDIAfolder = [System.String]::Format("C:\NVIDIA\{0}", $nvidiaVer)
 Write-Host "The NVIDIA Folder name is '$NVIDIAfolder'"
 Set-Location $NVIDIAfolder
 .\setup.exe -s -noreboot -clean
-Start-Sleep -s 600
+Start-Sleep -s 180
 & $teradiciExePath /S /NoPostReboot
 Start-Sleep -s 90 
 Write-Host "teradiciagent install over"
