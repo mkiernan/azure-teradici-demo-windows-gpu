@@ -27,7 +27,7 @@
     },
     "VMType": {
       "type": "string",
-      "defaultValue": "Standard_NV12",
+      "defaultValue": "Standard_NV24",
       "allowedValues": [
         "Standard_NV6",
         "Standard_NV12",
