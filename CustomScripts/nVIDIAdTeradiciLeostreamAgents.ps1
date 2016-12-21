@@ -22,6 +22,9 @@ $nvidiaVer = $args[2]
 $storageAcc = $args[3]
 $conName = $args[4]
 $license = $args[5]
+$registryPath = "HKLM:\Software\Teradici\PCoIP"
+$Name = "pcoip_admin"
+$value = "8"
 $Date = Get-Date
 <#
 Write-Host "You inputs are '$leostreamAgentVer' and '$teradiciAgentVer' with '$nvidiaVer', '$storageAcc', '$conName', '$license'  on '$Date'"
@@ -85,9 +88,24 @@ cd 'C:\Program Files (x86)\Teradici\PCoIP Agent\licenses\'
 Write-Host "pre-activate"
 .\appactutil.exe -served -comm soap -commServer https://teradici.flexnetoperations.com/control/trdi/ActivationService -entitlementID $license
 Write-Host "activation over"
+if ($teradiciAgentVer -match "2.7.0.4060")
+{
+IF(!(Test-Path $registryPath))
+
+  {
+    New-Item -Path $registryPath -Force | Out-Null
+    New-ItemProperty -Path $registryPath -Name $name -Value $value -PropertyType DWORD -Force | Out-Null}
+
+ ELSE {
+     New-ItemProperty -Path $registryPath -Name $name -Value $value -PropertyType DWORD -Force | Out-Null}
+  }
+else
+{ 
+  Write-Host  "No Registry entry required ."
+}
 <# Reboot in 60 seconds #>
-Write-Host "end script"
 C:\WINDOWS\system32\shutdown.exe -r -f -t 60
+Write-Host "end script"
 <# & 'C:\Program Files (x86)\Teradici\PCoIP Agent\bin\RestartAgent.bat' #>
 <# cd 'C:\Program Files (x86)\Teradici\PCoIP Agent\bin'
 .\RestartAgent.bat
