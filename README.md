@@ -12,6 +12,6 @@
 * Collection of the user dumps for the NVIDIA Display Driver 369.71  from within the VM on Display Driver Crash if occurs.
  * Details are [here](http://nvidia.custhelp.com/app/answers/detail/a_id/3335/~/tdr-(timeout-detection-and-recovery)-and-collecting-dump-files) 
 * PCOIP RC Agent Log Collection (2.7.0.3589 ) from the Teradici System Tray (right click Teradici Icon on System Tray) and collect Agent Logs (from the pop-up)
-* The PCOIP Agent Logs (v1.9) from the Office Client machine of the end-user from <code>C:\Users<user_name>\AppData\Local\Teradici\PCoIPClient\logs</code>
+* The PCOIP Agent Logs (v1.9.*) from the Office Client machine of the end-user from <code>C:\Users<user_name>\AppData\Local\Teradici\PCoIPClient\logs</code>
 
 
