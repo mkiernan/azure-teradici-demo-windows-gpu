@@ -77,7 +77,7 @@ $NVIDIAfolder = [System.String]::Format("C:\NVIDIA\{0}", $nvidiaVer)
 Write-Host "The NVIDIA Folder name is '$NVIDIAfolder'"
 Set-Location $NVIDIAfolder
 .\setup.exe -s -noreboot -clean
-Start-Sleep -s 6000
+Start-Sleep -s 600
 & $teradiciExePath /S /NoPostReboot
 Start-Sleep -s 90 
 Write-Host "teradiciagent install over"
