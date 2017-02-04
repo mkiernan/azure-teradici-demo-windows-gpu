@@ -31,6 +31,10 @@ Write-Host "You inputs are '$leostreamAgentVer' and '$teradiciAgentVer' with '$n
 
 New-Item -Path $dest -ItemType directory
 
+wget https://teradicidemopackages.blob.core.windows.net/packages/Unigine_Heaven-4.0.zip -OutFile C:\Downloadinstallers\Unigine_Heaven-4.0.zip
+wget https://teradicidemopackages.blob.core.windows.net/packages/Tetra4D.zip -OutFile C:\Downloadinstallers\Tetra4D.zip
+wget https://teradicidemopackages.blob.core.windows.net/packages/Unity_Turbine.zip -OutFile C:\Downloadinstallers\Unity_Turbine.zip
+
 wget https://$storageAcc.blob.core.windows.net/$conName/"$nvidiaVer"_grid_win10_server2016_64bit_international.exe -OutFile C:\Downloadinstallers\"$nvidiaVer"_grid_win10_server2016_64bit_international.exe
 wget http://download.opendtect.org/relman/OpendTect_Installer_win64.exe -OutFile C:\Downloadinstallers\OpendTect_Installer_win64.exe
 wget https://$storageAcc.blob.core.windows.net/$conName/PCoIP_agent_release_installer_"$teradiciAgentVer"_graphics.exe -OutFile C:\Downloadinstallers\PCoIP_agent_release_installer_"$teradiciAgentVer"_graphics.exe
