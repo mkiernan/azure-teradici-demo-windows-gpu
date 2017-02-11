@@ -1,4 +1,9 @@
 # Deploy Teradici Demo on Azure N-Series
+# **WIP**
+* [Prereqs](#prereqs)
+* [MSFT OSCC](#msft-oscc)
+* [Reporting Bugs](#reporting-bugs)
+* [Patches and pull requests](#patches-and-pull-requests)
 
 ### Obtain a Trial License For the Windows Graphics Agent from [here](http://connect.teradici.com/cas-trial) to put in the template parameter
 <a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2mkiernan%2Fazure-teradici-demo-windows-gpu%2Fmaster%2Fazuredeploy.json" target="_blank">
