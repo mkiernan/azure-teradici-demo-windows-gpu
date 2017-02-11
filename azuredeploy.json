@@ -22,7 +22,7 @@
         "2012-Datacenter"
       ],
       "metadata": {
-        "description": "Windows SKUs for GPU"
+         "description": "Windows SKUs for GPU"
       }
     },
     "VMType": {

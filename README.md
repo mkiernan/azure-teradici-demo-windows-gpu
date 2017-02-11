@@ -1,5 +1,5 @@
-# Deploy a Windows NV VM.
-# **WIP** 
+# Deploy Teradici Demo on Azure N-Series
+
 ### Obtain a Trial License For the Windows Graphics Agent from [here](http://connect.teradici.com/cas-trial) to put in the template parameter
 <a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FAzure%2Fazure-accessplatform-windows-gpu%2Fmaster%2Fazuredeploy.json" target="_blank">
     <img src="http://azuredeploy.net/deploybutton.png"/>
@@ -7,8 +7,6 @@
 <a href="http://armviz.io/#/?load=https%3A%2F%2Fraw.githubusercontent.com%2FAzure%2Fazure-accessplatform-windows-gpu%2Fmaster%2Fazuredeploy.json" target="_blank">
     <img src="http://armviz.io/visualizebutton.png"/>
 </a>
-*
-* Credit: Original version by Dwai Banerjee: https://github.com/Azure/azure-accessplatform-windows-gpu
 *
 * PCoIP Client Download for Windows is [here](http://teradici.com/swclient-windows)
 * nView needs to be enabled manually. [User Guide](http://www.nvidia.com/content/quadro/pdf/nView-user-guide.pdf)
