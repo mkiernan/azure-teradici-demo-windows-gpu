@@ -4,6 +4,7 @@
   "parameters": {
     "adminUsername": {
       "type": "string",
+      "defaultValue": "teradici", 
       "metadata": {
         "description": "Username for the Virtual Machine."
       }
@@ -97,7 +98,7 @@
       "type": "string",
       "defaultValue": "winm60",
       "metadata": {
-        "description": "The Public Addtress Name"
+        "description": "The Public Address Name"
       }
     },
     "allocationMethod": {
