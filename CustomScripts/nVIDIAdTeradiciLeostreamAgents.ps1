@@ -1,10 +1,8 @@
-<# Install NVIDIA Drivers, PCOIP Agent and download Leostream Agent/OpendTect #>
+<# Install NVIDIA Drivers, PCOIP Agent and download Leostream Agent/Demo packages #>
 <#param (
     [string]$leostreamAgentVer,
     [string]$teradiciAgentVer,
     [string]$nvidiaVer,	
-    [string]$storageAcc,
-    [string]$conName
 )
 #>
 <#
@@ -12,35 +10,36 @@ $dest = "C:\Downloadinstallers"
 $leostreamAgentVer = $Args[0]
 $teradiciAgentVer = "2.7.0.3589"
 $nvidiaVer = "369.71"
-$storageAcc = "tdcm16sg112leo8193ls102"
-$conName = "tdcm16sg112leo8193ls102"
 #>
 $dest = "C:\Downloadinstallers\"
 $leostreamAgentVer = $args[0]
 $teradiciAgentVer = $args[1]
 $nvidiaVer = $args[2]
-$storageAcc = $args[3]
-$conName = $args[4]
-$license = $args[5]
+$license = $args[3]
 $registryPath = "HKLM:\Software\Teradici\PCoIP"
 $Name = "pcoip_admin"
 $value = "8"
 $Date = Get-Date
 <#
-Write-Host "You inputs are '$leostreamAgentVer' and '$teradiciAgentVer' with '$nvidiaVer', '$storageAcc', '$conName', '$license'  on '$Date'"
+Write-Host "Your inputs are '$leostreamAgentVer' and '$teradiciAgentVer' with '$nvidiaVer', '$license'  on '$Date'"
 
 New-Item -Path $dest -ItemType directory
 
+# Grab Demo Packages
 wget https://teradicidemopackages.blob.core.windows.net/packages/Unigine_Heaven-4.0.zip -OutFile C:\Downloadinstallers\Unigine_Heaven-4.0.zip
 wget https://teradicidemopackages.blob.core.windows.net/packages/Tetra4D.zip -OutFile C:\Downloadinstallers\Tetra4D.zip
 wget https://teradicidemopackages.blob.core.windows.net/packages/Unity_Turbine.zip -OutFile C:\Downloadinstallers\Unity_Turbine.zip
-
-wget https://$storageAcc.blob.core.windows.net/$conName/"$nvidiaVer"_grid_win10_server2016_64bit_international.exe -OutFile C:\Downloadinstallers\"$nvidiaVer"_grid_win10_server2016_64bit_international.exe
+wget https://teradicidemopackages.blob.core.windows.net/packages/SetupFaceWorks.exe -OutFile C:\Downloadinstallers\SetupFaceWorks.exe
 wget http://download.opendtect.org/relman/OpendTect_Installer_win64.exe -OutFile C:\Downloadinstallers\OpendTect_Installer_win64.exe
-wget https://$storageAcc.blob.core.windows.net/$conName/PCoIP_agent_release_installer_"$teradiciAgentVer"_graphics.exe -OutFile C:\Downloadinstallers\PCoIP_agent_release_installer_"$teradiciAgentVer"_graphics.exe
+# http://ftp.lstc.com/anonymous/outgoing/lsprepost/4.3/win64/LS-PrePost-4.3-x64_setup.exe\
+wget https://teradicidemopackages.blob.core.windows.net/nvdemo/LS-PrePost-4.3-x64_setup.exe C:\Downloadinstallers\LS-PrePost-4.3-x64_setup.exe
+wget https://teradicidemopackages.blob.core.windows.net/nvdemo/LS-PrePost-4.3dp-x64_setup.exe C:\Downloadinstallers\LS-PrePost-4.3dp-x64_setup.exe
 
-wget https://$storageAcc.blob.core.windows.net/$conName/LeostreamAgentSetup$leostreamAgentVer.exe -OutFile C:\Downloadinstallers\LeostreamAgentSetup$leostreamAgentVer.exe
 
+# Grab NVIDIA, Teradici & Leostream Packages
+wget https://teradicidemopackages.blob.core.windows.net/packages/"$nvidiaVer"_grid_win10_server2016_64bit_international.exe -OutFile C:\Downloadinstallers\"$nvidiaVer"_grid_win10_server2016_64bit_international.exe
+wget https://teradicidemopackages.blob.core.windows.net/packages/PCoIP_agent_release_installer_"$teradiciAgentVer"_graphics.exe -OutFile C:\Downloadinstallers\PCoIP_agent_release_installer_"$teradiciAgentVer"_graphics.exe
+wget https://teradicidemopackages.blob.core.windows.net/packages/LeostreamAgentSetup$leostreamAgentVer.exe -OutFile C:\Downloadinstallers\LeostreamAgentSetup$leostreamAgentVer.exe
 
 C:\Downloadinstallers\"$nvidiaVer"_grid_win10_server2016_64bit_international.exe /s
 Start-Sleep -s 90
@@ -56,9 +55,9 @@ net start nvsvc
 & 'C:\Program Files (x86)\Teradici\PCoIP Agent\licenses\appactutil.exe' appactutil.exe -served -comm soap -commServer https://teradici.flexnetoperations.com/control/trdi/ActivationService -entitlementID $license
 #>
 New-Item -Path $dest -ItemType directory
-$nvidiaUrl = [System.String]::Format("https://{0}.blob.core.windows.net/{1}/{2}_grid_win10_server2016_64bit_international.exe", $storageAcc, $conName, $nvidiaVer)
-$teradiciAgentUrl = [System.String]::Format("https://{0}.blob.core.windows.net/{1}/PCoIP_agent_release_installer_{2}_graphics.exe", $storageAcc, $conName, $teradiciAgentVer)
-$leostreamAgentUrl = [System.String]::Format("https://{0}.blob.core.windows.net/{1}/LeostreamAgentSetup{2}.exe", $storageAcc, $conName, $leostreamAgentVer)
+$nvidiaUrl = [System.String]::Format("https://teradicidemopackages.blob.core.windows.net/packages/{0}_grid_win10_server2016_64bit_international.exe", $nvidiaVer)
+$teradiciAgentUrl = [System.String]::Format("https://teradicidemopackages.blob.core.windows.net/packages/PCoIP_agent_release_installer_{0}_graphics.exe", $teradiciAgentVer)
+$leostreamAgentUrl = [System.String]::Format("https://teradicidemopackages.blob.core.windows.net/packages/LeostreamAgentSetup{0}.exe", $leostreamAgentVer)
 $nvidiaExeName = [System.IO.Path]::GetFileName($nvidiaUrl)
 $teradiciExeName = [System.IO.Path]::GetFileName($teradiciAgentUrl)
 $leostreamExeName = [System.IO.Path]::GetFileName($leostreamAgentUrl)
@@ -71,9 +70,10 @@ Write-Host "The Teradici Agent exe  Url  is '$teradiciAgentUrl'"
 Write-Host "The Teradici Agent exe name is '$teradiciExeName'"
 Write-Host "The Leostream Agent exe Url is '$leostreamAgentUrl'"
 Write-Host "The Leostream Agent exe name is '$leostreamExeName'"
-Write-Host "The NVIDIDA exe downloaded location is '$nvidiaExePath'"
+Write-Host "The NVIDIA exe downloaded location is '$nvidiaExePath'"
 Write-Host "The Teradici Agent exe downloaded location is '$teradiciExePath'"
 Write-Host "The Leostream Agent exe downloaded location iss '$leostreamExePath'"
+Write-Host "All Demo Packages are installed in C:\Downloadinstallers"
 wget $nvidiaUrl -OutFile $nvidiaExePath
 wget $teradiciAgentUrl -OutFile $teradiciExePath
 wget $leostreamAgentUrl -OutFile $leostreamExePath

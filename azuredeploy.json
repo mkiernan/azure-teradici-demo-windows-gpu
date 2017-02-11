@@ -111,20 +111,6 @@
         "description": "The Public Addtress Allocation Static or Dynamic"
       }
     },
-    "storageAcc": {
-      "type": "string",
-      "defaultValue": "tdcm16sg112leo8193ls102",
-      "metadata": {
-        "description": "The Storage Account Name"
-      }
-    },
-    "conName": {
-      "type": "string",
-      "defaultValue": "tdcm16sg112leo8193ls102",
-      "metadata": {
-        "description": "The Storage Container Name"
-      }
-    },
     "license": {
       "type": "string",
       "defaultValue": "344F-D342-7928-30A2",
@@ -298,7 +284,7 @@
               "fileUris": [
                 "[concat(parameters('_artifactsLocation'), variables('nVIDIAdTeradiciLeostreamAgentsScriptFolder'), '/', variables('nVIDIAdTeradiciLeostreamAgentsScriptFileName'))]"
               ],
-               "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -File ', variables('nVIDIAdTeradiciLeostreamAgentsScriptFileName'), ' ', parameters('leostreamAgentVer'), ' ', parameters('teradiciAgentVer'), ' ', parameters('nvidiaVer'), ' ', parameters('storageAcc'), ' ', parameters('conName'), ' ', parameters('license'))]"
+               "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -File ', variables('nVIDIAdTeradiciLeostreamAgentsScriptFileName'), ' ', parameters('leostreamAgentVer'), ' ', parameters('teradiciAgentVer'), ' ', parameters('nvidiaVer'), ' ',  parameters('license'))]"
             }
           }
         }
