@@ -6,7 +6,7 @@
             "value": "teradici"
         },
         "adminPassword": {
-            "value": ""
+            "value": "GEN-PASSWORD"
         }
     }
 }
