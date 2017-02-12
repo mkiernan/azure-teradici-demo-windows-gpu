@@ -69,20 +69,19 @@ cd 'C:\Program Files (x86)\Teradici\PCoIP Agent\licenses\'
 Write-Host "pre-activate"
 .\appactutil.exe -served -comm soap -commServer https://teradici.flexnetoperations.com/control/trdi/ActivationService -entitlementID $license
 Write-Host "activation over"
-if ($teradiciAgentVer -match "2.7.0.4060")
-{
-IF(!(Test-Path $registryPath))
+if ($teradiciAgentVer -match "2.7.0.4060") {
+    IF(!(Test-Path $registryPath))
+    {
+        New-Item -Path $registryPath -Force | Out-Null
+        New-ItemProperty -Path $registryPath -Name $name -Value $value -PropertyType DWORD -Force | Out-Null
+    }
 
-  {
-    New-Item -Path $registryPath -Force | Out-Null
-    New-ItemProperty -Path $registryPath -Name $name -Value $value -PropertyType DWORD -Force | Out-Null}
-
- ELSE {
-     New-ItemProperty -Path $registryPath -Name $name -Value $value -PropertyType DWORD -Force | Out-Null}
-  }
-else
-{ 
-  Write-Host  "No Registry entry required ."
+    ELSE {
+        New-ItemProperty -Path $registryPath -Name $name -Value $value -PropertyType DWORD -Force | Out-Null
+    }
+}
+else { 
+    Write-Host  "No Registry entry required ."
 }
 Write-Host "Driver configuration complete at $(Get-Date)"
 
