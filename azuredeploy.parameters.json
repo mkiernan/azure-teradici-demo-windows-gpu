@@ -5,8 +5,8 @@
         "adminUsername": {
             "value": "teradici"
         },
-	"adminPassword": {
-	    "value": ""
-	}
+        "adminPassword": {
+            "value": ""
+        }
     }
 }

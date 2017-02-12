@@ -1,17 +1,12 @@
 <# Install NVIDIA Drivers, PCOIP Agent and download Leostream Agent/Demo packages #>
-<#param (
-    [string]$leostreamAgentVer,
-    [string]$teradiciAgentVer,
-    [string]$nvidiaVer
-)
-#>
-<#
+
+<#-- uncomment for testing --
 $dest = "C:\Downloadinstallers"
 $leostreamAgentVer = "6-2-7-0"
 $teradiciAgentVer = "2.7.0.4060"
 $nvidiaVer = "369.71"
 $license = "344F-D342-7928-30A2"
-#>
+-- uncomment for testing -- #>
 $dest = "C:\Downloadinstallers\"
 $leostreamAgentVer = $args[0]
 $teradiciAgentVer = $args[1]
