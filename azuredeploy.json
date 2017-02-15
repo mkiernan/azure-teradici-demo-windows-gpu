@@ -4,7 +4,7 @@
   "parameters": {
     "adminUsername": {
       "type": "string",
-      "defaultValue": "teradici", 
+      "defaultValue": "azureuser", 
       "metadata": {
         "description": "Username for the Virtual Machine."
       }
@@ -289,8 +289,6 @@
             }
           }
         }
-
-
       ]
     }
   ],
