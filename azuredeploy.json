@@ -2,17 +2,17 @@
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
-      "adminUserName": {
+    "adminUsername": {
       "type": "string",
-      "defaultValue": "azureuser",
+      "defaultValue": "azureuser", 
       "metadata": {
-        "description": "User name for the Virtual Machine."
+        "description": "Username for the Virtual Machine."
       }
     },
     "adminPassword": {
       "type": "securestring",
       "metadata": {
-        "description": "Admin password across all nodes."
+        "description": "Password for the Virtual Machine."
       }
     },
     "VMSku": {
@@ -23,12 +23,12 @@
         "2012-Datacenter"
       ],
       "metadata": {
-        "description": "Windows SKUs for GPU"
+         "description": "Windows SKUs for GPU"
       }
     },
     "VMType": {
       "type": "string",
-      "defaultValue": "Standard_NV24",
+      "defaultValue": "Standard_NV6",
       "allowedValues": [
         "Standard_NV6",
         "Standard_NV12",
@@ -98,7 +98,7 @@
       "type": "string",
       "defaultValue": "winm60",
       "metadata": {
-        "description": "The Public Addtress Name"
+        "description": "The Public Address Name"
       }
     },
     "allocationMethod": {
@@ -109,21 +109,7 @@
         "Static"
       ],
       "metadata": {
-        "description": "The Public Addtress Allocation Static or Dynamic"
-      }
-    },
-    "storageAcc": {
-      "type": "string",
-      "defaultValue": "tdcm16sg112leo8193ls102",
-      "metadata": {
-        "description": "The Storage Account Name"
-      }
-    },
-    "conName": {
-      "type": "string",
-      "defaultValue": "tdcm16sg112leo8193ls102",
-      "metadata": {
-        "description": "The Storage Container Name"
+        "description": "The Public Address Allocation Static or Dynamic"
       }
     },
     "license": {
@@ -149,7 +135,7 @@
       "metadata": {
         "description": "The base URI where artifacts required by this template are located. When the template is deployed using the accompanying scripts, a private location in the subscription will be used and this value will be automatically generated."
       },
-      "defaultValue": "https://raw.githubusercontent.com/Azure/azure-accessplatform-windows-gpu/master/"
+      "defaultValue": "https://raw.githubusercontent.com/mkiernan/azure-teradici-demo-windows-gpu/master/"
     }
   },
   "variables": {
@@ -299,12 +285,10 @@
               "fileUris": [
                 "[concat(parameters('_artifactsLocation'), variables('nVIDIAdTeradiciLeostreamAgentsScriptFolder'), '/', variables('nVIDIAdTeradiciLeostreamAgentsScriptFileName'))]"
               ],
-               "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -File ', variables('nVIDIAdTeradiciLeostreamAgentsScriptFileName'), ' ', parameters('leostreamAgentVer'), ' ', parameters('teradiciAgentVer'), ' ', parameters('nvidiaVer'), ' ', parameters('storageAcc'), ' ', parameters('conName'), ' ', parameters('license'))]"
+               "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -File ', variables('nVIDIAdTeradiciLeostreamAgentsScriptFileName'), ' ', parameters('leostreamAgentVer'), ' ', parameters('teradiciAgentVer'), ' ', parameters('nvidiaVer'), ' ',  parameters('license'))]"
             }
           }
         }
-
-
       ]
     }
   ],
