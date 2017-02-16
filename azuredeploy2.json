@@ -1,0 +1,335 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "adminUsername": {
+      "type": "string",
+      "metadata": {
+        "description": "Username for the Virtual Machine."
+      }
+    },
+    "adminPassword": {
+      "type": "securestring",
+      "metadata": {
+        "description": "Password for the Virtual Machine."
+      }
+    },
+    "VMSku": {
+      "type": "string",
+      "defaultValue": "2016-Datacenter",
+      "allowedValues": [
+        "2016-Datacenter",
+        "2012-Datacenter"
+      ],
+      "metadata": {
+        "description": "Windows SKUs for GPU"
+      }
+    },
+    "VMType": {
+      "type": "string",
+      "defaultValue": "Standard_NV24",
+      "allowedValues": [
+        "Standard_NV6",
+        "Standard_NV12",
+        "Standard_NV24"
+      ],
+      "metadata": {
+        "description": "GPU VM Types for M60"
+      }
+    },
+    "VMName": {
+      "type": "string",
+      "defaultValue": "win16m60",
+      "metadata": {
+        "description": "The VMName"
+      }
+    },
+    "VNetName": {
+      "type": "string",
+      "defaultValue": "vnet01",
+      "metadata": {
+        "description": "The VNetName"
+      }
+    },
+    "VMnicName": {
+      "type": "string",
+      "defaultValue": "nic01",
+      "metadata": {
+        "description": "The Nicname"
+      }
+    },
+    "subPrefix": {
+      "type": "string",
+      "defaultValue": "10.0.0.0/24",
+      "metadata": {
+        "description": "The Subnet Prefix"
+      }
+    },
+    "addPrefix": {
+      "type": "string",
+      "defaultValue": "10.0.0.0/16",
+      "metadata": {
+        "description": "The address Prefix"
+      }
+    },
+    "subName": {
+      "type": "string",
+      "defaultValue": "sub01",
+      "metadata": {
+        "description": "The Subnet Name"
+      }
+    },
+    "leostreamAgentVer": {
+      "type": "string",
+      "defaultValue": "6-2-7-0",
+      "metadata": {
+        "description": "The Leostream Agent Version"
+      }
+    },
+    "nvidiaVer": {
+      "type": "string",
+      "defaultValue": "369.71",
+      "metadata": {
+        "description": "The NVIDIA Version Name"
+      }
+    },
+    "publicIPAddressName": {
+      "type": "string",
+      "defaultValue": "winm60",
+      "metadata": {
+        "description": "The Public Addtress Name"
+      }
+    },
+    "allocationMethod": {
+      "type": "string",
+      "defaultValue": "Static",
+      "allowedValues": [
+        "Dynamic",
+        "Static"
+      ],
+      "metadata": {
+        "description": "The Public Addtress Allocation Static or Dynamic"
+      }
+    },
+    "storageAcc": {
+      "type": "string",
+      "defaultValue": "tdcm16sg112leo8193ls102",
+      "metadata": {
+        "description": "The Storage Account Name for GRID Drivers - generic"
+      }
+    },
+    "conName": {
+      "type": "string",
+      "defaultValue": "tdcm16sg112leo8193ls102",
+      "metadata": {
+        "description": "The Storage Container Name for Generic NVIDIA GRID 4.1 Driver"
+      }
+    },
+    
+    "CorrespondingAzureLocation": {
+      "type": "string",
+      "defaultValue": "https://go.microsoft.com/fwlink/?linkid=836843",
+      "metadata": {
+        "description": "Use specific Azure GRID Driver Location for NVIDIA Version"
+      }
+    },
+    "useSpecificAzureDriver": {
+      "type": "string",
+      "defaultValue": "Yes",
+      "allowedValues": [
+        "Yes",
+        "No"
+      ],
+      "metadata": {
+        "description": "Use specific Azure GRID Driver for NVIDIA Version"
+      }
+    },
+    "license": {
+      "type": "string",
+      "defaultValue": "344F-D342-7928-30A2",
+      "metadata": {
+        "description": "The Teradici Agent license trial @ http://connect.teradici.com/cas-trial"
+      }
+    },
+    "teradiciAgentVer": {
+      "type": "string",
+      "defaultValue": "2.7.0.4060",
+       "allowedValues": [
+        "2.7.0.3589",
+        "2.7.0.4060"
+      ],
+      "metadata": {
+        "description": "The Teradici Agent Version"
+      }
+    },
+    "_artifactsLocation": {
+      "type": "string",
+      "metadata": {
+        "description": "The base URI where artifacts required by this template are located. When the template is deployed using the accompanying scripts, a private location in the subscription will be used and this value will be automatically generated."
+      },
+      "defaultValue": "https://raw.githubusercontent.com/Azure/azure-accessplatform-windows-gpu/master/"
+    }
+  },
+  "variables": {
+    "addressPrefix": "[parameters('addPrefix')]",
+    "dnsNameForPublicIP": "[uniqueString(resourceGroup().id)]",
+    "nicName": "[parameters('VMnicName')]",
+    "subnetName": "[parameters('subName')]",
+    "subnetPrefix": "[parameters('subPrefix')]",
+    "subnetRef": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('virtualNetworkName'), variables('subnetName'))]",
+    "vhdStorageAccountName": "[uniqueString(resourceGroup().id, 'storage')]",
+    "virtualNetworkName": "[parameters('VNetName')]",
+    "vmName": "[parameters('VMName')]",
+    "nVIDIAdTeradiciLeostreamAgentsScriptFolder": "CustomScripts",
+    "nVIDIAdTeradiciLeostreamAgentsScriptFileName": "nVIDIAdTeradiciLeostreamAgents.ps1"
+  },
+  "resources": [
+    {
+      "type": "Microsoft.Storage/storageAccounts",
+      "name": "[variables('vhdStorageAccountName')]",
+      "apiVersion": "2016-01-01",
+      "location": "[resourceGroup().location]",
+      "sku": {
+        "name": "Standard_LRS"
+      },
+      "kind": "Storage",
+      "properties": {}
+    },
+    {
+      "apiVersion": "2016-09-01",
+      "type": "Microsoft.Network/publicIPAddresses",
+      "name": "[parameters('publicIPAddressName')]",
+      "location": "[resourceGroup().location]",
+      "properties": {
+        "publicIPAllocationMethod": "[parameters('allocationMethod')]",
+        "dnsSettings": {
+          "domainNameLabel": "[variables('dnsNameForPublicIP')]"
+        }
+      }
+    },
+    {
+      "apiVersion": "2016-09-01",
+      "type": "Microsoft.Network/virtualNetworks",
+      "name": "[variables('virtualNetworkName')]",
+      "location": "[resourceGroup().location]",
+      "properties": {
+        "addressSpace": {
+          "addressPrefixes": [
+            "[variables('addressPrefix')]"
+          ]
+        },
+        "subnets": [
+          {
+            "name": "[variables('subnetName')]",
+            "properties": {
+              "addressPrefix": "[variables('subnetPrefix')]"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "apiVersion": "2016-09-01",
+      "type": "Microsoft.Network/networkInterfaces",
+      "name": "[variables('nicName')]",
+      "location": "[resourceGroup().location]",
+      "dependsOn": [
+        "[parameters('publicIPAddressName')]",
+        "[variables('virtualNetworkName')]"
+      ],
+      "properties": {
+        "ipConfigurations": [
+          {
+            "name": "ipconfig1",
+            "properties": {
+              "privateIPAllocationMethod": "Dynamic",
+              "publicIPAddress": {
+                "id": "[resourceId('Microsoft.Network/publicIPAddresses',parameters('publicIPAddressName'))]"
+              },
+              "subnet": {
+                "id": "[variables('subnetRef')]"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "apiVersion": "2016-03-30",
+      "type": "Microsoft.Compute/virtualMachines",
+      "name": "[variables('vmName')]",
+      "location": "[resourceGroup().location]",
+      "dependsOn": [
+        "[variables('vhdStorageAccountName')]",
+        "[variables('nicName')]"
+      ],
+      "properties": {
+        "hardwareProfile": {
+          "vmSize": "[parameters('VMType')]"
+        },
+        "osProfile": {
+          "computerName": "[variables('vmName')]",
+          "adminUsername": "[parameters('adminUsername')]",
+          "adminPassword": "[parameters('adminPassword')]"
+        },
+        "storageProfile": {
+          "imageReference": {
+            "publisher": "MicrosoftWindowsServer",
+            "offer": "WindowsServer",
+            "sku": "[parameters('VMSku')]",
+            "version": "latest"
+          },
+          "osDisk": {
+            "name": "osdisk",
+            "vhd": {
+              "uri": "[concat(reference(variables('vhdStorageAccountName'), providers('Microsoft.Storage', 'storageAccounts').apiVersions[0]).primaryEndpoints.blob, 'vhds/osdisk.vhd')]"
+            },
+            "caching": "ReadWrite",
+            "createOption": "FromImage"
+          }
+        },
+        "networkProfile": {
+          "networkInterfaces": [
+            {
+              "id": "[resourceId('Microsoft.Network/networkInterfaces',variables('nicName'))]"
+            }
+          ]
+        }
+      },
+      "resources": [
+        {
+          "name": "nVIDIAdTeradiciLeostreamAgents",
+          "type": "extensions",
+          "location": "[resourceGroup().location]",
+          "apiVersion": "2015-06-15",
+          "dependsOn": [
+            "[resourceId('Microsoft.Compute/virtualMachines', variables('vmName'))]"
+          ],
+          "tags": {
+            "displayName": "nVIDIAdTeradiciLeostreamAgents"
+          },
+          "properties": {
+            "publisher": "Microsoft.Compute",
+            "type": "CustomScriptExtension",
+            "typeHandlerVersion": "1.8",
+            "autoUpgradeMinorVersion": true,
+            "settings": {
+              "fileUris": [
+                "[concat(parameters('_artifactsLocation'), variables('nVIDIAdTeradiciLeostreamAgentsScriptFolder'), '/', variables('nVIDIAdTeradiciLeostreamAgentsScriptFileName'))]"
+              ],
+               "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -File ', variables('nVIDIAdTeradiciLeostreamAgentsScriptFileName'), ' ', parameters('leostreamAgentVer'), ' ', parameters('teradiciAgentVer'), ' ', parameters('nvidiaVer'), ' ', parameters('storageAcc'), ' ', parameters('conName'), ' ', parameters('license'), ' ', parameters('CorrespondingAzureLocation'), ' ', parameters('useSpecificAzureDriver'))]"
+            }
+          }
+        }
+
+
+      ]
+    }
+  ],
+  "outputs": {
+    "vm-fqdn": {
+      "type": "string",
+      "value": "[reference(parameters('publicIPAddressName'), '2016-03-30').dnsSettings.fqdn]"
+    }
+  }
+}
